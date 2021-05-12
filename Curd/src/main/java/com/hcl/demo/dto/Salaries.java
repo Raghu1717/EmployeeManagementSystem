@@ -15,6 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Salaries implements Serializable {
 
 	private int salary;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fromDate;
 

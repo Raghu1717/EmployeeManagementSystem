@@ -13,14 +13,13 @@ import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 public class Employee implements Serializable {
-    
-	@Id 
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long emp_no;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
@@ -29,28 +28,20 @@ public class Employee implements Serializable {
 	private String lastName;
 
 	private String gender;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate hireDate;
 
-	@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "emp")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
 	private Salaries salary;
 
-	@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "emp")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
 	private Titles title;
 
-	@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "emp")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
 	private DepartmentManager departmentManager;
-	
-	@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "emp")
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
 	private DepartmentEmp departEmp;
 
 	public Salaries getSalary() {

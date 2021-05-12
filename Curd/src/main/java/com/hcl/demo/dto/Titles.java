@@ -13,6 +13,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Titles implements Serializable {
+	
+	private String title;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fromDate;
 
