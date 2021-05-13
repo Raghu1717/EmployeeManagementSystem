@@ -36,13 +36,13 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("employees/{id}")
+	@GetMapping("/employees/get/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") long employeeId) {
 		Employee employee = employeeService.findById(employeeId);
 		return ResponseEntity.ok().body(employee);
 	}
 
-	@PutMapping("employess/{id}")
+	@PutMapping("employess/update/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") long employeeId,
 			@RequestBody Employee employeeDetails) {
 		Employee employee = employeeService.findById(employeeId);
@@ -54,7 +54,7 @@ public class EmployeeController {
 
 	}
 
-	@DeleteMapping("/employee/{id}")
+	@DeleteMapping("/employee/delete/{id}")
 	public ResponseEntity<String> deleteEmployee(@PathVariable(value = "id") long employeeId) {
 		Employee employee = employeeService.findById(employeeId);
 		if (employee.getEmp_no() == employeeId)
@@ -63,27 +63,27 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("employee/{birthdate}")
+	@GetMapping("employee/get/{birthdate}")
 	public ResponseEntity<Employee> findByBirthDate(@PathVariable(value = "birhtdate") LocalDate birthDate) {
 		Employee employee = employeeService.findBybirthDate(birthDate);
 		return ResponseEntity.ok().body(employee);
 
 	}
 
-	@GetMapping("employee/{lastName}")
+	@GetMapping("employee/get/{lastName}")
 	public ResponseEntity<Employee> findByLastName(@RequestParam(value = "lastName") String lastName) {
 		Employee employee = employeeService.findByLastName(lastName);
 		return ResponseEntity.ok().body(employee);
 
 	}
 
-	@GetMapping("employee/{gender}")
+	@GetMapping("employee/get/{gender}")
 	public ResponseEntity<Employee> findBygender(@PathVariable(value = "gender") String gender) {
 		Employee employee = employeeService.findBygender(gender);
 		return ResponseEntity.ok().body(employee);
 	}
 
-	@GetMapping("employee/{firstName}")
+	@GetMapping("employee/get/{firstName}")
 	public ResponseEntity<Employee> findByFirstName(@PathVariable(value = "firstName") String firstName) {
 		Employee employee = employeeService.findByFirstName(firstName);
 		return ResponseEntity.ok().body(employee);
