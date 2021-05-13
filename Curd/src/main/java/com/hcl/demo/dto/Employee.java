@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +29,8 @@ public class Employee implements Serializable {
 
 	private String lastName;
 
-	private String gender;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate hireDate;
@@ -100,10 +103,6 @@ public class Employee implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
@@ -112,16 +111,20 @@ public class Employee implements Serializable {
 		this.birthDate = birthDate;
 	}
 
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
 	public LocalDate getHireDate() {
 		return hireDate;
 	}
 
 	public void setHireDate(LocalDate hireDate) {
 		this.hireDate = hireDate;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 
 }
