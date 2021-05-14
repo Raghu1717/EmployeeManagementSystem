@@ -25,14 +25,13 @@ public class DepartmentManager implements Serializable {
 	private LocalDate toDate;
 
 	@Id
-
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "emp_no")
 	private Employee emp;
 
 	@Id
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "departNo")
+	@JoinColumn(name = "dep_id", nullable = false, referencedColumnName = "departNo")
 	private Departments dep;
 
 	public LocalDate getFromDate() {

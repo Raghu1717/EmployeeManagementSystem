@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Titles implements Serializable {
 	
+
 	private String title;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,4 +52,12 @@ public class Titles implements Serializable {
 		this.toDate = toDate;
 	}
 
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
