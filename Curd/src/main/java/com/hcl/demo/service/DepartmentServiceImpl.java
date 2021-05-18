@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hcl.demo.dao.DepartmentRepository;
-import com.hcl.demo.dto.Departments;
-import com.hcl.demo.dto.Employee;
+import com.hcl.demo.entity.Departments;
+import com.hcl.demo.entity.Employee;
+import com.hcl.demo.repository.DepartmentRepository;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {

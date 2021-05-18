@@ -2,7 +2,7 @@ package com.hcl.demo.service;
 
 import java.util.List;
 
-import com.hcl.demo.dto.Departments;
+import com.hcl.demo.entity.Departments;
 
 public interface DepartmentService {
 

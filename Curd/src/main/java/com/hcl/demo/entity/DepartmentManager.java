@@ -1,19 +1,26 @@
-package com.hcl.demo.dto;
+package com.hcl.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
-public class DepartmentEmp implements Serializable {
+public class DepartmentManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

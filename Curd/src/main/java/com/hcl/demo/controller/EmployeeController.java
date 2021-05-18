@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hcl.demo.dto.Employee;
-import com.hcl.demo.dto.Salaries;
-import com.hcl.demo.dto.Titles;
+import com.hcl.demo.entity.Employee;
+import com.hcl.demo.entity.Salaries;
+import com.hcl.demo.entity.Titles;
 import com.hcl.demo.exception.EmployeeNotFoundException;
 import com.hcl.demo.service.DepartmentService;
 import com.hcl.demo.service.EmployeeService;
@@ -36,7 +36,6 @@ public class EmployeeController {
 
 	@PostMapping("/AddEmployee")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-
 		Employee newEmployee = EmployeeRequestUtil.getEmployee(employee);
 		Employee emp = employeeService.addEmployee(newEmployee);
 		return ResponseEntity.ok().body(emp);
@@ -68,7 +67,7 @@ public class EmployeeController {
 
 	}
 
-	@DeleteMapping("DeleteById/{id}")
+	@DeleteMapping("/DeleteById/{id}")
 	public ResponseEntity<String> deleteEmployee(@PathVariable(value = "id") long employeeId) {
 		Employee employee = employeeService.findById(employeeId);
 		if (employee.getEmp_no() == employeeId)
@@ -77,29 +76,28 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("GetByBirthDate/get/{birthdate}")
-	public ResponseEntity<Employee> findByBirthDate(@PathVariable(value = "birhtdate") LocalDate birthDate) {
-		Employee employee = employeeService.findBybirthDate(birthDate);
+	@GetMapping("/GetByBirthDate/get/{birthdate}")
+	public ResponseEntity<List<Employee>> findByBirthDate(@PathVariable(value = "birhtdate") LocalDate birthDate) {
+		List<Employee> employee = employeeService.findBybirthDate(birthDate);
+		return ResponseEntity.ok().body(employee);
+	}
+
+	@GetMapping("/GetByLastName/{lastName}")
+	public ResponseEntity<List<Employee>> findByLastName(@RequestParam(value = "lastName") String lastName) {
+		List<Employee> employee = employeeService.findByLastName(lastName);
 		return ResponseEntity.ok().body(employee);
 
 	}
 
-	@GetMapping("GetByLastName/{lastName}")
-	public ResponseEntity<Employee> findByLastName(@RequestParam(value = "lastName") String lastName) {
-		Employee employee = employeeService.findByLastName(lastName);
-		return ResponseEntity.ok().body(employee);
-
-	}
-
-	@GetMapping("GetByGender/{gender}")
-	public ResponseEntity<Employee> findBygender(@PathVariable(value = "gender") String gender) {
-		Employee employee = employeeService.findBygender(gender);
+	@GetMapping("/GetByGender/{gender}")
+	public ResponseEntity<List<Employee>> findBygender(@PathVariable(value = "gender") String gender) {
+		List<Employee> employee = employeeService.findBygender(gender);
 		return ResponseEntity.ok().body(employee);
 	}
 
-	@GetMapping("GetByFirstName/{firstName}")
-	public ResponseEntity<Employee> findByFirstName(@PathVariable(value = "firstName") String firstName) {
-		Employee employee = employeeService.findByFirstName(firstName);
+	@GetMapping("/GetByFirstName/{firstName}")
+	public ResponseEntity<List<Employee>> findByFirstName(@PathVariable(value = "firstName") String firstName) {
+		List<Employee> employee = employeeService.findByFirstName(firstName);
 		return ResponseEntity.ok().body(employee);
 
 	}

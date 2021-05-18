@@ -1,23 +1,21 @@
-package com.hcl.demo.dto;
+package com.hcl.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Salaries implements Serializable {
+public class DepartmentEmp implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private int salary;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
@@ -27,18 +25,15 @@ public class Salaries implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate toDate;
 
-	@OneToOne
+	@ManyToOne()
 	@JoinColumn(name = "emp_no")
-	@Id
+	@EmbeddedId
 	private Employee employee;
 
-	public int getSalary() {
-		return salary;
-	}
-
-	public void setSalary(int salary) {
-		this.salary = salary;
-	}
+	@ManyToOne
+	@EmbeddedId
+	@JoinColumn(name = "dept_no")
+	private Departments department;
 
 	public LocalDate getFromDate() {
 		return fromDate;
@@ -62,6 +57,14 @@ public class Salaries implements Serializable {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public Departments getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Departments department) {
+		this.department = department;
 	}
 
 }

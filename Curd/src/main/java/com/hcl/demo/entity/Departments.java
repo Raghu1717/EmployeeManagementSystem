@@ -1,12 +1,15 @@
-package com.hcl.demo.dto;
+package com.hcl.demo.entity;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -17,8 +20,11 @@ public class Departments implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "dept_no", length = 4)
 	private int departNo;
 
+	@Column(name = "dept_name", length = 40)
 	private String departName;
 
 	@OneToMany(targetEntity = DepartmentEmp.class, mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -58,15 +64,5 @@ public class Departments implements Serializable {
 	public void setDepartName(String departName) {
 		this.departName = departName;
 	}
-
-	/*
-	 * public DepartmentEmp getDeptEmp() { return deptEmp; }
-	 * 
-	 * public void setDeptEmp(DepartmentEmp deptEmp) { this.deptEmp = deptEmp; }
-	 * 
-	 * public DepartmentManager getDepMng() { return depMng; }
-	 * 
-	 * public void setDepMng(DepartmentManager depMng) { this.depMng = depMng; }
-	 */
 
 }

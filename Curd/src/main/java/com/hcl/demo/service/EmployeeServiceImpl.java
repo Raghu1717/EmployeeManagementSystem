@@ -7,9 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hcl.demo.dao.EmployeeRepository;
-import com.hcl.demo.dto.Employee;
+import com.hcl.demo.entity.Employee;
+import com.hcl.demo.exception.BadRequestException;
 import com.hcl.demo.exception.EmployeeNotFoundException;
+import com.hcl.demo.repository.EmployeeRepository;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -47,46 +48,47 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee findBybirthDate(LocalDate birthDate) {
+	public List<Employee> findBybirthDate(LocalDate birthDate) {
 		if (birthDate != null) {
 			employeeRepository.findByBirthDate(birthDate);
 		}
-		throw new EmployeeNotFoundException("BirthDate" + birthDate);
+		throw new BadRequestException("BirthDate" + birthDate);
 	}
 
 	@Override
-	public Employee findBygender(String gender) {
+	public List<Employee> findBygender(String gender) {
 		if (gender != null) {
 			employeeRepository.findByGender(gender);
 		}
-		throw new EmployeeNotFoundException("Gender" + gender);
+		throw new BadRequestException("Gender" + gender);
 	}
 
 	@Override
-	public Employee findByLastName(String lastName) {
+	public List<Employee> findByLastName(String lastName) {
 		if (lastName != null) {
-			employeeRepository.findByLastName(lastName);
+			return employeeRepository.findByLastName(lastName);
 		}
-		throw new EmployeeNotFoundException("LastName" + lastName);
+		throw new BadRequestException("LastName" + lastName);
+
 	}
 
 	@Override
-	public Employee findByFirstName(String firstName) {
+	public List<Employee> findByFirstName(String firstName) {
 		if (firstName != null) {
-			employeeRepository.findByFirstName(firstName);
+			return employeeRepository.findByFirstName(firstName);
 		}
-		throw new EmployeeNotFoundException("FirstName" + firstName);
+		throw new BadRequestException("FirstName" + firstName);
 	}
 
 	@Override
 	public List<Employee> findEmployees(String lastName, String birthDate, String gender) {
 		if (lastName != null && birthDate != null && gender != null) {
 
-			List<Employee> employeelist = employeeRepository.findAll();
+			return employeeRepository.findByLastNameAndBirthDateAndGender(lastName, birthDate, gender);
 
 		}
 
-		throw new RuntimeException();
+		throw new BadRequestException("LastName" + lastName + "....BirthDate" + birthDate + "...+Gender:" + gender);
 
 	}
 

@@ -23,5 +23,9 @@ public class EmployeeExceptionController {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
+	@ExceptionHandler(BadRequestException.class)
+	public final ResponseEntity<ErrorDetails> handleAllExceptions(BadRequestException ex, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(),"Bad Request:"+ex.getMessage(),request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
 }

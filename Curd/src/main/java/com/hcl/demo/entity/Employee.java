@@ -1,4 +1,4 @@
-package com.hcl.demo.dto;
+package com.hcl.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,15 +30,17 @@ public class Employee implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(insertable = false, updatable = false)
+	@Column(name = "emp_no", length = 11, insertable = false, updatable = false)
 	private long emp_no;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate birthDate;
 
+	@Column(name = "first_name", length = 14)
 	private String firstName;
 
+	@Column(name = "last_name", length = 16)
 	private String lastName;
 
 	@Enumerated(EnumType.STRING)

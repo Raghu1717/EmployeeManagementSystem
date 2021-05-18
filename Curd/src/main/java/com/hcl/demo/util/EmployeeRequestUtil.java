@@ -3,12 +3,12 @@ package com.hcl.demo.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hcl.demo.dto.DepartmentEmp;
-import com.hcl.demo.dto.DepartmentManager;
-import com.hcl.demo.dto.Departments;
-import com.hcl.demo.dto.Employee;
-import com.hcl.demo.dto.Salaries;
-import com.hcl.demo.dto.Titles;
+import com.hcl.demo.entity.DepartmentEmp;
+import com.hcl.demo.entity.DepartmentManager;
+import com.hcl.demo.entity.Departments;
+import com.hcl.demo.entity.Employee;
+import com.hcl.demo.entity.Salaries;
+import com.hcl.demo.entity.Titles;
 
 public class EmployeeRequestUtil {
 

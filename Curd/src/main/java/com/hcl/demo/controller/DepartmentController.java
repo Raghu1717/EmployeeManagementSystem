@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hcl.demo.dto.Departments;
+import com.hcl.demo.entity.Departments;
 import com.hcl.demo.service.DepartmentService;
 
 @RestController

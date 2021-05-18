@@ -1,12 +1,10 @@
-package com.hcl.demo.dto;
+package com.hcl.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -16,32 +14,35 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Titles implements Serializable {
+public class Salaries implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String title;
+	@Column(name = "salary", length = 11)
+	private int salary;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@Column(name = "form_date")
 	private LocalDate fromDate;
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@Column(name = "to_Date")
 	private LocalDate toDate;
 
 	@OneToOne
 	@JoinColumn(name = "emp_no")
 	@Id
 	private Employee employee;
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
 
 	public LocalDate getFromDate() {
 		return fromDate;
@@ -59,11 +60,12 @@ public class Titles implements Serializable {
 		this.toDate = toDate;
 	}
 
-	public String getTitle() {
-		return title;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
+
 }

@@ -1,46 +1,51 @@
-package com.hcl.demo.dto;
+package com.hcl.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import io.swagger.annotations.ApiModelProperty;
-
 @Entity
-public class DepartmentManager implements Serializable {
+public class Titles implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+   
+	@Column(name = "title",length = 50)
+	private String title;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@Column(name="form_date")
 	private LocalDate fromDate;
 
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@Column(name="to_date")
 	private LocalDate toDate;
-
-	@ManyToOne()
+    
+	@Id
+	@OneToOne
 	@JoinColumn(name = "emp_no")
-	@EmbeddedId
 	private Employee employee;
-
-	@ManyToOne
-	@EmbeddedId
-	@JoinColumn(name = "dept_no")
-	private Departments department;
 
 	public LocalDate getFromDate() {
 		return fromDate;
@@ -58,20 +63,11 @@ public class DepartmentManager implements Serializable {
 		this.toDate = toDate;
 	}
 
-	public Employee getEmployee() {
-		return employee;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
-	public Departments getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Departments department) {
-		this.department = department;
-	}
-
 }

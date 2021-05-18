@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.hcl.demo.dao.EmployeeRepository;
-import com.hcl.demo.dto.DepartmentManager;
-import com.hcl.demo.dto.Departments;
-import com.hcl.demo.dto.Employee;
-import com.hcl.demo.dto.Salaries;
-import com.hcl.demo.dto.Titles;
+import com.hcl.demo.entity.DepartmentManager;
+import com.hcl.demo.entity.Departments;
+import com.hcl.demo.entity.Employee;
+import com.hcl.demo.entity.Salaries;
+import com.hcl.demo.entity.Titles;
+import com.hcl.demo.repository.EmployeeRepository;
 import com.hcl.demo.service.EmployeeService;
 
 @SpringBootTest

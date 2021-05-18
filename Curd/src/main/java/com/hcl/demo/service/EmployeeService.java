@@ -3,7 +3,7 @@ package com.hcl.demo.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.hcl.demo.dto.Employee;
+import com.hcl.demo.entity.Employee;
 
 public interface EmployeeService {
 
@@ -17,13 +17,13 @@ public interface EmployeeService {
 
 	public Employee findById(long employeeId);
 
-	public Employee findBybirthDate(LocalDate birthDate);
+	public List<Employee> findBybirthDate(LocalDate birthDate);
 
-	public Employee findByLastName(String lastName);
+	public List<Employee> findByLastName(String lastName);
 
-	public Employee findBygender(String gender);
+	public List<Employee> findBygender(String gender);
 
-	public Employee findByFirstName(String firstName);
+	public List<Employee> findByFirstName(String firstName);
 
 	public List<Employee> findEmployees(String lastName, String birthdate, String gender);
 }
