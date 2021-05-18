@@ -20,6 +20,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>{
 	List<Employee> findByGender(String lastName);
 	
 	List<Employee> findByFirstName(String firstName);
+	
+	public List<Employee> findEmployees(String lastName, String birthdate, String gender);
+	
+
 
 }
  
