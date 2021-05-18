@@ -5,36 +5,43 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Titles implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
 
 	private String title;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate fromDate;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate toDate;
-    
+
+	@OneToOne
+	@JoinColumn(name = "emp_no")
 	@Id
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "emp_id", nullable = false)
-	private Employee emp;
-
-	public Employee getEmp() {
-		return emp;
-	}
-
-	public void setEmp(Employee emp) {
-		this.emp = emp;
-	}
+	private Employee employee;
 
 	public LocalDate getFromDate() {
 		return fromDate;
@@ -52,7 +59,6 @@ public class Titles implements Serializable {
 		this.toDate = toDate;
 	}
 
-	
 	public String getTitle() {
 		return title;
 	}

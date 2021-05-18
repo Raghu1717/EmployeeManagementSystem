@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hcl.demo.dao.DepartmentRepository;
 import com.hcl.demo.dto.Departments;
+import com.hcl.demo.dto.Employee;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -23,7 +24,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public void deleteDepartment(int id) {
 		departmentRepostiory.deleteById(id);
-		
 
 	}
 
@@ -31,20 +31,18 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public Departments getDepartment(int id) {
 		Optional<Departments> department = departmentRepostiory.findById(id);
 		if (department.isPresent()) {
-			System.out.println("nnnnnnnnn"+id);
-			return department.get();
+			department.get();
 		}
 		return null;
-
 	}
 
 	@Override
 	public Departments updateDepartment(Departments department) {
-		Optional<Departments> departments=departmentRepostiory.findById(department.getDepartNo());
+		Optional<Departments> departments = departmentRepostiory.findById(department.getDepartNo());
 		if (departments.isPresent()) {
-			 departments.get().setDepartName(department.getDepartName());
-			 departmentRepostiory.save(departments.get());
-			 
+			departments.get().setDepartName(department.getDepartName());
+			departmentRepostiory.save(departments.get());
+
 		}
 
 		return null;
@@ -53,7 +51,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public void deleteAllDepartment() {
 		departmentRepostiory.deleteAll();
-		
+
 	}
 
 	@Override

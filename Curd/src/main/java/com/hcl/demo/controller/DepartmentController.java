@@ -17,47 +17,45 @@ import com.hcl.demo.service.DepartmentService;
 
 @RestController
 public class DepartmentController {
-      @Autowired
+	@Autowired
 	private DepartmentService departmentService;
 
-	@PostMapping("/department/add")
+	@PostMapping("/Add Department")
 	public ResponseEntity<Departments> createDepartments(@RequestBody Departments department) {
 		department = departmentService.addDepartment(department);
 		return ResponseEntity.ok().body(department);
 
 	}
 
-	@DeleteMapping("/department/delete/{id}")
+	@DeleteMapping("/DepartmentDeletedById/{id}")
 	public ResponseEntity<String> deleteDepartment(@PathVariable(value = "id") int id) {
 		Departments department = departmentService.getDepartment(id);
-		if (department!=null && department.getDepartNo() == id) {
+		if (department != null && department.getDepartNo() == id) {
 			departmentService.deleteDepartment(id);
-		return ResponseEntity.ok("Sucessfully Deleted");
-		}
-		else {
+			return ResponseEntity.ok("Sucessfully Deleted");
+		} else {
 			return ResponseEntity.ok("Department Not Found");
 		}
 	}
 
-	@GetMapping("/department/get/{id}")
+	@GetMapping("/DepartmentGetByID/{id}")
 	public ResponseEntity<Departments> getDepartmentById(@PathVariable(value = "id") int id) {
 		Departments department = departmentService.getDepartment(id);
-		if(department==null) {
+		if (department == null) {
 			return ResponseEntity.ok().body(new Departments());
 		}
 		return ResponseEntity.ok().body(department);
 
 	}
 
-	@PutMapping("/department/update")
-	public ResponseEntity<Departments> updateDepartment(@RequestBody Departments department) 
-	{
-		department=	departmentService.updateDepartment(department);
+	@PutMapping("/DepartmentUpdate/{department}")
+	public ResponseEntity<Departments> updateDepartment(@RequestBody Departments department) {
+		department = departmentService.updateDepartment(department);
 		return ResponseEntity.ok().body(department);
 
 	}
 
-	@GetMapping("/departments")
+	@GetMapping("/GetAllDepartments")
 	public ResponseEntity<List<Departments>> getAllDepartments() {
 		return ResponseEntity.ok().body(departmentService.getAllDepartments());
 

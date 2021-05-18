@@ -8,6 +8,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CompisteKey implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private long emp_no;
 
 	private int departNo;

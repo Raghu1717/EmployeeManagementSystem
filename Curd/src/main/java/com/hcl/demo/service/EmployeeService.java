@@ -22,6 +22,8 @@ public interface EmployeeService {
 	public Employee findByLastName(String lastName);
 
 	public Employee findBygender(String gender);
-    
+
 	public Employee findByFirstName(String firstName);
+
+	public List<Employee> findEmployees(String lastName, String birthdate, String gender);
 }

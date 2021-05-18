@@ -15,7 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hcl.demo.dto.Employee;
+import com.hcl.demo.dto.Salaries;
+import com.hcl.demo.dto.Titles;
+import com.hcl.demo.exception.EmployeeNotFoundException;
+import com.hcl.demo.service.DepartmentService;
 import com.hcl.demo.service.EmployeeService;
+import com.hcl.demo.util.EmployeeRequestUtil;
 
 @RestController
 public class EmployeeController {
@@ -23,29 +28,38 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@GetMapping("/employees")
+	@GetMapping("/GetAllEmployees")
 	public ResponseEntity<List<Employee>> getAllEmployee() {
 		List<Employee> emmployess = employeeService.getAllemployees();
 		return ResponseEntity.ok().body(emmployess);
 	}
 
-	@PostMapping("/employee/add")
+	@PostMapping("/AddEmployee")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-		Employee emp = employeeService.addEmployee(employee);
+
+		Employee newEmployee = EmployeeRequestUtil.getEmployee(employee);
+		Employee emp = employeeService.addEmployee(newEmployee);
 		return ResponseEntity.ok().body(emp);
 
 	}
 
-	@GetMapping("/employees/get/{id}")
+	@GetMapping("/FindById")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") long employeeId) {
 		Employee employee = employeeService.findById(employeeId);
-		return ResponseEntity.ok().body(employee);
+		if (employee != null)
+			return ResponseEntity.ok().body(employee);
+		else {
+
+			throw new EmployeeNotFoundException("Id" + employeeId);
+		}
+
 	}
 
-	@PutMapping("employess/update/{id}")
+	@PutMapping("/UpdateById/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") long employeeId,
 			@RequestBody Employee employeeDetails) {
 		Employee employee = employeeService.findById(employeeId);
+
 		employee.setFirstName(employeeDetails.getFirstName());
 		employee.setLastName(employeeDetails.getLastName());
 		employee.setHireDate(employeeDetails.getHireDate());
@@ -54,7 +68,7 @@ public class EmployeeController {
 
 	}
 
-	@DeleteMapping("/employee/delete/{id}")
+	@DeleteMapping("DeleteById/{id}")
 	public ResponseEntity<String> deleteEmployee(@PathVariable(value = "id") long employeeId) {
 		Employee employee = employeeService.findById(employeeId);
 		if (employee.getEmp_no() == employeeId)
@@ -63,30 +77,38 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("employee/get/{birthdate}")
+	@GetMapping("GetByBirthDate/get/{birthdate}")
 	public ResponseEntity<Employee> findByBirthDate(@PathVariable(value = "birhtdate") LocalDate birthDate) {
 		Employee employee = employeeService.findBybirthDate(birthDate);
 		return ResponseEntity.ok().body(employee);
 
 	}
 
-	@GetMapping("employee/get/{lastName}")
+	@GetMapping("GetByLastName/{lastName}")
 	public ResponseEntity<Employee> findByLastName(@RequestParam(value = "lastName") String lastName) {
 		Employee employee = employeeService.findByLastName(lastName);
 		return ResponseEntity.ok().body(employee);
 
 	}
 
-	@GetMapping("employee/get/{gender}")
+	@GetMapping("GetByGender/{gender}")
 	public ResponseEntity<Employee> findBygender(@PathVariable(value = "gender") String gender) {
 		Employee employee = employeeService.findBygender(gender);
 		return ResponseEntity.ok().body(employee);
 	}
 
-	@GetMapping("employee/get/{firstName}")
+	@GetMapping("GetByFirstName/{firstName}")
 	public ResponseEntity<Employee> findByFirstName(@PathVariable(value = "firstName") String firstName) {
 		Employee employee = employeeService.findByFirstName(firstName);
 		return ResponseEntity.ok().body(employee);
 
 	}
+
+	@GetMapping("FindEmployees/{lastName}/{birthdate}/{gender}")
+	public ResponseEntity<List<Employee>> findEmployee(@RequestParam String lastName, @RequestParam String birthdate,
+			@RequestParam String gender) {
+		List<Employee> employeeList = employeeService.findEmployees(lastName, birthdate, gender);
+		return ResponseEntity.ok().body(employeeList);
+	}
+
 }

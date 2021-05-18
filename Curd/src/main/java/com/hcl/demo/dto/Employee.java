@@ -2,8 +2,12 @@ package com.hcl.demo.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,18 +15,26 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
+@Embeddable
 public class Employee implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(insertable = false, updatable = false)
 	private long emp_no;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate birthDate;
 
 	private String firstName;
@@ -32,52 +44,23 @@ public class Employee implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate hireDate;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
+	@OneToMany(targetEntity = DepartmentEmp.class, orphanRemoval = true, mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Embedded
+	private List<DepartmentEmp> dep_emp;
+
+	@OneToOne(targetEntity = Salaries.class, orphanRemoval = true, mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Salaries salary;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
-	private Titles title;
+	@OneToOne(targetEntity = Titles.class, orphanRemoval = true, mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Titles titles;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
-	private DepartmentManager departmentManager;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
-	private DepartmentEmp departEmp;
-
-	public Salaries getSalary() {
-		return salary;
-	}
-
-	public void setSalary(Salaries salary) {
-		this.salary = salary;
-	}
-
-	public Titles getTitle() {
-		return title;
-	}
-
-	public void setTitle(Titles title) {
-		this.title = title;
-	}
-
-	public DepartmentManager getDepartmentmanager() {
-		return departmentManager;
-	}
-
-	public void setDepartmentmanager(DepartmentManager departmentmanager) {
-		this.departmentManager = departmentManager;
-	}
-
-	public DepartmentEmp getDepartemp() {
-		return departEmp;
-	}
-
-	public void setDepartemp(DepartmentEmp departemp) {
-		this.departEmp = departEmp;
-	}
+	@OneToMany(targetEntity = DepartmentManager.class, orphanRemoval = true, mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Embedded
+	private List<DepartmentManager> dept_manager;
 
 	public long getEmp_no() {
 		return emp_no;
@@ -85,6 +68,14 @@ public class Employee implements Serializable {
 
 	public void setEmp_no(long emp_no) {
 		this.emp_no = emp_no;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public String getFirstName() {
@@ -103,14 +94,6 @@ public class Employee implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
 	public Gender getGender() {
 		return gender;
 	}
@@ -125,6 +108,38 @@ public class Employee implements Serializable {
 
 	public void setHireDate(LocalDate hireDate) {
 		this.hireDate = hireDate;
+	}
+
+	public Salaries getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Salaries salary) {
+		this.salary = salary;
+	}
+
+	public List<DepartmentEmp> getDep_emp() {
+		return dep_emp;
+	}
+
+	public void setDep_emp(List<DepartmentEmp> dep_emp) {
+		this.dep_emp = dep_emp;
+	}
+
+	public List<DepartmentManager> getDept_manager() {
+		return dept_manager;
+	}
+
+	public void setDept_manager(List<DepartmentManager> dept_manager) {
+		this.dept_manager = dept_manager;
+	}
+
+	public Titles getTitles() {
+		return titles;
+	}
+
+	public void setTitles(Titles titles) {
+		this.titles = titles;
 	}
 
 }

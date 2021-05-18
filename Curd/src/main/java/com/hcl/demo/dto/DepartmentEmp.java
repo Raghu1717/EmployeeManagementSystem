@@ -5,33 +5,35 @@ import java.time.LocalDate;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class DepartmentEmp implements Serializable {
-	@EmbeddedId
-	private CompisteKey id;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private static final long serialVersionUID = 1L;
+
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate fromDate;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDate toDate;
 
-	@Id
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "emp_no")
-	private Employee emp;
+	@ManyToOne()
+	@JoinColumn(name = "emp_no")
+	@EmbeddedId
+	private Employee employee;
 
-	@Id
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "dep_id", nullable = false, referencedColumnName = "departNo")
-	private Departments dep;
+	@ManyToOne
+	@EmbeddedId
+	@JoinColumn(name = "dept_no")
+	private Departments department;
 
 	public LocalDate getFromDate() {
 		return fromDate;
@@ -49,20 +51,20 @@ public class DepartmentEmp implements Serializable {
 		this.toDate = toDate;
 	}
 
-	public Employee getEmp() {
-		return emp;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmp(Employee emp) {
-		this.emp = emp;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
-	public Departments getDep() {
-		return dep;
+	public Departments getDepartment() {
+		return department;
 	}
 
-	public void setDep(Departments dep) {
-		this.dep = dep;
+	public void setDepartment(Departments department) {
+		this.department = department;
 	}
 
 }
